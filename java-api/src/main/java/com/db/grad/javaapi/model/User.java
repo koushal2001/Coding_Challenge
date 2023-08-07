@@ -1,6 +1,7 @@
 package com.db.grad.javaapi.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -22,6 +23,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "user")
+    private Set<BookUser> bookUsers;
     // Getters and setters
 
     public Long getId() {
