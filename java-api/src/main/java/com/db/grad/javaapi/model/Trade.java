@@ -1,5 +1,6 @@
 package com.db.grad.javaapi.model;
 
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,8 +19,9 @@ public class Trade {
     @Column(name = "counterparty_id")
     private Long counterpartyId;
 
-    @Column(name = "security_id")
-    private Long securityId;
+    @ManyToOne
+    @JoinColumn(name = "security_id")
+    private Security security;
 
     @Column(name = "quantity")
     private BigDecimal quantity;
@@ -65,12 +67,12 @@ public class Trade {
         this.counterpartyId = counterpartyId;
     }
 
-    public Long getSecurityId() {
-        return securityId;
+    public Security getSecurity() {
+        return security;
     }
 
-    public void setSecurityId(Long securityId) {
-        this.securityId = securityId;
+    public void setSecurity(Security security) {
+        this.security = security;
     }
 
     public BigDecimal getQuantity() {
@@ -121,4 +123,3 @@ public class Trade {
         this.settlementDate = settlementDate;
     }
 }
-
