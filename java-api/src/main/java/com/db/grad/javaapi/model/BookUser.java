@@ -3,13 +3,19 @@ package com.db.grad.javaapi.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "book_users")
-public class BookUser
-{
+@Table(name = "book_user")
+public class BookUser {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "book_name")
-    private String bookName;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

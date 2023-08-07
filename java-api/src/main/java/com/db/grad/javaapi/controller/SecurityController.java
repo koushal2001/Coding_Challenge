@@ -1,65 +1,73 @@
 package com.db.grad.javaapi.controller;
 
 
-import com.db.grad.javaapi.exception.ResourceNotFoundException;
-import com.db.grad.javaapi.model.Dogs;
 import com.db.grad.javaapi.model.Security;
-import com.db.grad.javaapi.repository.SecurityRepository;
-import com.db.grad.javaapi.service.DogsService;
 import com.db.grad.javaapi.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.HashMap;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional; 
 
 @RestController
-@RequestMapping("/api/v1")
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
+@RequestMapping("/api/securities")
 public class SecurityController {
-    private SecurityService securityService;
+
+    private final SecurityService securityService;
 
     @Autowired
-    public SecurityController(SecurityService ss) {
-        securityService = ss;
+    public SecurityController(SecurityService securityService) {
+        this.securityService = securityService;
     }
 
-    @PostMapping("/security")
-    public Security createSecurity(@Valid @RequestBody Security security) {
-        return securityService.saveSecurity(security);
+    @GetMapping
+    public ResponseEntity<List<Security>> getAllSecurities() {
+        List<Security> securities = securityService.getAllSecurities();
+        return new ResponseEntity<>(securities, HttpStatus.OK);
     }
 
-    @GetMapping("/security")
-    public List<Security> getAllSecurities() {
-        return securityService.getAllSecurities();
+    @GetMapping("/{id}")
+    public ResponseEntity<Security> getSecurityById(@PathVariable Long id) {
+    Optional<Security> optionalSecurity = securityService.getSecurityById(id);
+        
+        if (optionalSecurity.isPresent()) {
+            Security security = optionalSecurity.get();
+            return new ResponseEntity<>(security, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
-    @GetMapping("/security/{id}")
-    public ResponseEntity<Security> getSecurityById(@PathVariable(value = "id") Long id)
-            throws ResourceNotFoundException {
-        Security security = securityService.findSecurityById(id);
-        return ResponseEntity.ok().body(security);
+
+    @GetMapping("/by-date")
+    public ResponseEntity<List<Security>> getSecuritiesByDate(@RequestParam String startDate, @RequestParam String endDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate parsedStartDate = LocalDate.parse(startDate, formatter);
+        LocalDate parsedEndDate = LocalDate.parse(endDate, formatter);
+
+        List<Security> securities = securityService.getSecuritiesByDateRange(parsedStartDate, parsedEndDate);
+        return new ResponseEntity<>(securities, HttpStatus.OK);
     }
 
-    @PutMapping("/security/{id}")
-    public ResponseEntity<Security> updateSecurity(@PathVariable(value = "id") Long id,
-                                          @Valid @RequestBody Security security) throws ResourceNotFoundException {
-
-        final Security updatedSecurity = securityService.updateSecurityDetails(id, security);
-        return ResponseEntity.ok(updatedSecurity);
+    @PostMapping
+    public ResponseEntity<Security> createSecurity(@RequestBody Security security) {
+        Security createdSecurity = securityService.createSecurity(security);
+        return new ResponseEntity<>(createdSecurity, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/security/{id}")
-    public Map<String, Boolean> deleteSecurity(@PathVariable(value = "id") Long id)
-            throws ResourceNotFoundException {
-        Security security = securityService.deleteSecurity(id);
-
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+    @PutMapping("/{id}")
+    public ResponseEntity<Security> updateSecurity(@PathVariable Long id, @RequestBody Security security) {
+        Security updatedSecurity = securityService.updateSecurity(id, security);
+        return new ResponseEntity<>(updatedSecurity, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSecurity(@PathVariable Long id) {
+        securityService.deleteSecurity(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

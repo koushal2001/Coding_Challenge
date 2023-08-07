@@ -1,6 +1,7 @@
 package com.db.grad.javaapi.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -12,6 +13,9 @@ public class Book {
 
     @Column(name = "book_name")
     private String bookName;
+
+    @OneToMany(mappedBy = "book")
+    private Set<BookUser> bookUsers;
 
     // Getters and setters
 
