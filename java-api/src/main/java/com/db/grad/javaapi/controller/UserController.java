@@ -1,6 +1,8 @@
 package com.db.grad.javaapi.controller;
 
+import com.db.grad.javaapi.model.Book;
 import com.db.grad.javaapi.model.User;
+import com.db.grad.javaapi.service.BookUserService;
 import com.db.grad.javaapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,14 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private  BookUserService bookUserService;
 
+    
+        
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+        this.bookUserService = bookUserService;
     }
 
     @GetMapping
@@ -31,6 +37,11 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable Long userId) {
         User user = userService.getUserById(userId);
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/{username}/books")
+    public List<Book> getBooksForUser(@PathVariable String username) {
+        return bookUserService.getBooksForUserByUsername(username);
     }
 
     @PostMapping

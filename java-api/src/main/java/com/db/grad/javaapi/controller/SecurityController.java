@@ -2,6 +2,7 @@ package com.db.grad.javaapi.controller;
 
 
 import com.db.grad.javaapi.model.Security;
+import com.db.grad.javaapi.model.Trade;
 import com.db.grad.javaapi.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,11 @@ public class SecurityController {
         }
     }
 
-
+    @GetMapping("/{securityId}/trades")
+    public List<Trade> getTradesForSecurity(@PathVariable Long securityId) {
+        return securityService.getTradesForSecurity(securityId);
+    }
+    
     @GetMapping("/by-date")
     public ResponseEntity<List<Security>> getSecuritiesByDate(@RequestParam String startDate, @RequestParam String endDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

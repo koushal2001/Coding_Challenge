@@ -1,6 +1,7 @@
 package com.db.grad.javaapi.service;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import com.db.grad.javaapi.model.User;
 import com.db.grad.javaapi.model.Book;
@@ -22,7 +23,7 @@ public class BookUserService {
     private final UserRepository userRepository;
     private final BookRepository bookRepository;
     private final BookUserRepository bookUserRepository;
-
+    
     @Autowired
     public BookUserService(UserRepository userRepository,
                            BookRepository bookRepository,
@@ -66,6 +67,14 @@ public class BookUserService {
         return books;
     }
     
+    public List<Book> getBooksForUserByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new EntityNotFoundException("User not found");
+        }
+        Long userId = user.getId();
+        return getBooksForUser(userId);
+    }
     
     public List<User> getUsersForBook(Long bookId) {
         Book book = entityManager.find(Book.class, bookId);
