@@ -1,0 +1,62 @@
+body{
+    background-color: #F8F8F8;
+}
+.Card{
+    margin: 2rem auto;
+    width:70rem;
+    background-color: whitesmoke;
+    border: 2px solid gray;
+    border-radius: 10px;
+    display: grid;
+  grid-template-columns: 1fr 3fr;
+  padding: 2px;
+  }
+.company{
+    display: flex;
+    flex-direction: column;
+}
+  .tradedata{
+    align-items: left;
+  }
+  .d1,.d2{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap:1rem;
+    /* justify-content: space-around; */
+  }
+
+  .p1{
+    /* flex: 1 1 auto; */
+    width: 10rem;
+    padding-left: 2rem;
+    border: 2px solid gray;
+    border-radius: 15px;
+    text-align: left;
+    margin-top:0.2rem
+  }
+  .p2{
+    width: 10rem;
+    /* padding-left: 1rem; */
+    text-align: left;
+    color: #606060;
+    margin-top:0.2rem;
+    
+  }
+  .buttons{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 0.5rem;
+    padding: 0.2rem;
+  }
+  .b1{
+    background-color: #707070; /* Green */
+    border: none;
+    color: white;
+    border-radius: 2rem;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  }

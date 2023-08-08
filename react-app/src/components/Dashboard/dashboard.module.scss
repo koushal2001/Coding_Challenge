@@ -1,0 +1,125 @@
+*{
+    box-sizing: border-box;
+    
+  }
+  .container{
+    display: flex;
+    flex-direction: column;
+    
+   
+    background: white;
+      margin: 0 auto;
+      width: 90%
+    
+    
+  }
+  .stat_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  
+   
+  
+  }
+  
+  .tabletoolbar{
+      
+     
+     // position: relativ;
+     display: flex;
+     flex-basis: 100%;
+      //  width: 100%;
+      margin-top: 1rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+      // margin: 0 auto;
+      
+      
+  
+  
+  }
+  
+  .tableHead {
+      background-color: #18283b;
+      th {
+        font-weight: 600;
+        color: #fff;
+        font-size: 14px;
+      }
+      svg {
+        color: #fff;
+      }
+    }
+    .drawer {
+      width: 35vw;
+      padding: 1rem;
+    }
+  
+    
+  .searchbox{
+  /* Table-Toolbar */
+  
+  
+  /* Auto layout */
+  
+  display: flex;
+  flex-direction: row;
+  padding: 1rem 0rem;
+  margin-left: 3rem;
+  
+  
+  
+  
+  
+  /* ◇/HitBox */
+  
+  background: rgba(255, 255, 255, 1e-05);
+  }
+  
+  .stat_member{
+  box-sizing: border-box;
+  
+  
+  padding: 0.8rem 1rem;
+  
+  flex-wrap: wrap;
+  width: 10rem;
+  height: 5.5rem;
+  
+  
+  margin-bottom: 1rem;
+  
+  
+  
+  background: #FFFFFF;
+  box-shadow: 4px 4px 12px rgba(32, 73, 166, 0.05);
+  border-radius: 0.5rem;
+  }
+  
+  .Number{
+    
+      font-family: 'Roboto';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.5rem;
+      line-height: 1.8rem;
+      /* identical to box height, or 117% */
+      
+      
+      color: #000000;
+      
+      
+      /* Inside auto layout */
+      
+      
+  }
+  
+  .header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+  }

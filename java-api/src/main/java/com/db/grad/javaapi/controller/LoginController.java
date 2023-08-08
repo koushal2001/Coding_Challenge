@@ -16,8 +16,8 @@ public class LoginController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestParam String username, @RequestParam String password) {
-        User user = userRepository.findByUsername(username);
+    public ResponseEntity<Object> login(@RequestParam String email, @RequestParam String password) {
+        User user = userRepository.findByemail(email);
 
         if (user != null && user.getPassword().equals(password)) {
             return ResponseEntity.ok(user);
