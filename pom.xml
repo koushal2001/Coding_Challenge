@@ -6,9 +6,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.db.grad</groupId>
-    <artifactId>BondApp</artifactId>
+    <artifactId>arrakis</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>BondApp</name>
+    <name>arrakis</name>
 
     <description>Root project for Coding Challange</description>
 
