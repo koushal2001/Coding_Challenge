@@ -5,18 +5,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.db.grad.javaapi.model.Trade;
 import com.db.grad.javaapi.service.TradeService;
+import com.db.grad.javaapi.model.Book;
 import com.db.grad.javaapi.model.Security;
+import com.db.grad.javaapi.service.BookService;
 
 import java.util.Optional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/trades")
+@CrossOrigin(origins = "http://localhost:3000")
+
 public class TradeController {
 
     private final TradeService tradeService;
+    private BookService bookService;
 
     public TradeController(TradeService tradeService) {
         this.tradeService = tradeService;
+        this.bookService = bookService;
     }
 
     @GetMapping("/{id}")
@@ -33,6 +40,14 @@ public class TradeController {
         Security security = tradeService.getSecurityForTrade(tradeId);
         return new ResponseEntity<>(security, HttpStatus.OK);
     }
+
+    @GetMapping("/by-book/{bookId}")
+    public ResponseEntity<List<Trade>> getTradesForBook(@PathVariable Long bookId) {
+        List<Trade> trades = tradeService.getTradesForBook(bookId);
+        return ResponseEntity.ok(trades);
+    }
+
+
 
     @PostMapping
     public ResponseEntity<Trade> createTrade(@RequestBody Trade trade) {

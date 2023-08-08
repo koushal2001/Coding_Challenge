@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import com.db.grad.javaapi.model.Trade;
 import com.db.grad.javaapi.repository.TradeRepository;
+import com.db.grad.javaapi.model.Book;
 import com.db.grad.javaapi.model.Security;
 
 @Service
@@ -46,6 +47,10 @@ public class TradeService {
         }
     }
     
+    public List<Trade> getTradesForBook(Long bookId) {
+        return tradeRepository.findByBookId(bookId);
+    }
+
 
     public void deleteTrade(Long id) {
         tradeRepository.deleteById(id);

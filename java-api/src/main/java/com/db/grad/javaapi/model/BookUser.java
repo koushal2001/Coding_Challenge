@@ -6,6 +6,11 @@ import javax.persistence.*;
 @Table(name = "book_user")
 public class BookUser {
 
+    public BookUser(User user, Book book) {
+        this.user = user;
+        this.book = book;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
