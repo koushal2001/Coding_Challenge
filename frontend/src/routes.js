@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 
 const Auth = React.lazy(() => import("./components/Auth/Auth"));
 const Hello = React.lazy(() => import("./components/Hello1"));
+const Dashboard = React.lazy(() => import("./components/Dashboard/Dashboard"));
 
 
  const routes = () => {
@@ -20,6 +21,8 @@ const Hello = React.lazy(() => import("./components/Hello1"));
         <Routes>
           <Route exact path="/" element={<Auth/>}/>
           <Route exact path="/hello" element={<Hello/>}/>
+          <Route exact path="/dashboard" element={<Dashboard/>}/>
+          
           
         </Routes>
         </Suspense>
